@@ -226,6 +226,12 @@ function writeConfigs(argv: any) {
             "delayed-sequencer": {
                 "enable": false
             },
+            "timeboost-sequencer": {
+                "enable": false
+            },
+            "timeboost-delayed-sequencer": {
+                "enable": false
+            },
             "seq-coordinator": {
                 "enable": false,
                 "redis-url": argv.redisUrl,
@@ -258,6 +264,16 @@ function writeConfigs(argv: any) {
                     "url": argv.validationNodeUrl,
                     "jwtsecret": valJwtSecret,
                 }
+            },
+            feed: {
+                input: {
+                    url: [], // websocket urls
+                },
+                output: {
+                    enable: false,
+                    signed: false,
+                    addr: "0.0.0.0",
+                },
             },
             "data-availability": {
                 "enable": argv.anytrust,
@@ -331,6 +347,18 @@ function writeConfigs(argv: any) {
                 "enable": false, // Create it false initially, turn it on with sed in test-node.bash after contract setup.
                 "redis-url": argv.redisUrl
             };
+        }
+        if (argv.decentralizedTimeboost) {
+            sequencerConfig.node.sequencer = false;
+            sequencerConfig.node["timeboost-sequencer"].enable = true;
+            sequencerConfig.node["timeboost-delayed-sequencer"].enable = true;
+            sequencerConfig.node["seq-coordinator"].enable = false;
+            sequencerConfig.execution.sequencer.enable = false;
+            sequencerConfig.node["delayed-sequencer"].enable = false;
+            sequencerConfig.node.feed.output.enable = true;
+            sequencerConfig.execution["forwarding-target"] = "null";
+            sequencerConfig["log-level"] = "INFO";
+            sequencerConfig.node.feed.output.port = 9642;
         }
         fs.writeFileSync(path.join(consts.configpath, "sequencer_config.json"), JSON.stringify(sequencerConfig))
 
@@ -620,6 +648,11 @@ export const writeConfigCommand = {
             describe: "run sequencer in timeboost mode",
             default: false
         },
+        decentralizedTimeboost: {
+            boolean: true,
+            describe: "run decentralized timeboost",
+            default: false,
+        }
     },
     handler: (argv: any) => {
         writeConfigs(argv)

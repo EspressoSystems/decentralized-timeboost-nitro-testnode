@@ -2,7 +2,7 @@
 
 set -eu
 
-NITRO_NODE_VERSION=offchainlabs/nitro-node:v3.6.7-a7c9f1e
+NITRO_NODE_VERSION=ghcr.io/espressosystems/nitro-espresso-integration/nitro-node:pr-689
 BLOCKSCOUT_VERSION=offchainlabs/blockscout:v1.1.0-0e716c8
 
 # nitro-contract workaround for testnode
@@ -57,6 +57,7 @@ l1chainid=1337
 simple=true
 l2anytrust=false
 l2timeboost=false
+decentralized_timeboost=false
 
 # Use the dev versions of nitro/blockscout
 dev_nitro=false
@@ -278,6 +279,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --no-simple)
             simple=false
+            shift
+            ;;
+        --decentralized-timeboost)
+            decentralized_timeboost=true
             shift
             ;;
         *)
@@ -538,7 +543,7 @@ if $force_init; then
         docker compose run scripts write-config --simple $anytrustNodeConfigLine $timeboostNodeConfigLine
     else
         echo == Writing configs
-        docker compose run scripts write-config $anytrustNodeConfigLine $timeboostNodeConfigLine
+        docker compose run scripts write-config $anytrustNodeConfigLine $timeboostNodeConfigLine --decentralizedTimeboost $decentralized_timeboost
 
         echo == Initializing redis
         docker compose up --wait redis

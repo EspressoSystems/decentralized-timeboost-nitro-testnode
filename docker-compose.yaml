@@ -161,6 +161,7 @@ services:
       - "127.0.0.1:8547:8547"
       - "127.0.0.1:8548:8548"
       - "127.0.0.1:9642:9642"
+      - "127.0.0.1:55000:55000"
     volumes:
       - "seqdata:/home/user/.arbitrum/local/nitro"
       - "l1keystore:/home/user/l1keystore"
@@ -185,6 +186,8 @@ services:
     ports:
       - "127.0.0.1:8647:8547"
       - "127.0.0.1:8648:8548"
+      - "127.0.0.1:9842:9642"
+      - "127.0.0.1:55001:55000"
     volumes:
       - "seqdata_b:/home/user/.arbitrum/local/nitro"
       - "config:/config"

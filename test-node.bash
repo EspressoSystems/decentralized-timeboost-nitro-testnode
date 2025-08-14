@@ -29,7 +29,7 @@ if [[ $# -gt 0 ]] && [[ $1 == "script" ]]; then
     exit $?
 fi
 
-num_volumes=`docker volume ls --filter label=com.docker.compose.project=nitro-testnode -q | wc -l`
+num_volumes=`docker volume ls --filter label=com.docker.compose.project=decentralized-timeboost-nitro-testnode -q | wc -l`
 
 if [[ $num_volumes -eq 0 ]]; then
     force_init=true
@@ -58,6 +58,7 @@ simple=true
 l2anytrust=false
 l2timeboost=false
 decentralized_timeboost=false
+run_decentralized_timeboost=false
 
 # Use the dev versions of nitro/blockscout
 dev_nitro=false
@@ -285,6 +286,10 @@ while [[ $# -gt 0 ]]; do
             decentralized_timeboost=true
             shift
             ;;
+        --run-decentralized-timeboost)
+            run_decentralized_timeboost=true
+            shift
+            ;;
         *)
             echo Usage: $0 \[OPTIONS..]
             echo        $0 script [SCRIPT-ARGS]
@@ -327,11 +332,12 @@ done
 
 NODES="sequencer"
 INITIAL_SEQ_NODES="sequencer"
+TIMEBOOST_NODES=""
 
 if ! $simple; then
     NODES="$NODES redis"
 fi
-if [ $redundantsequencers -gt 0 ]; then
+if [ $redundantsequencers -gt 0 ] || [ $run_decentralized_timeboost ]; then
     NODES="$NODES sequencer_b"
     INITIAL_SEQ_NODES="$INITIAL_SEQ_NODES sequencer_b"
 fi
@@ -340,6 +346,10 @@ if [ $redundantsequencers -gt 1 ]; then
 fi
 if [ $redundantsequencers -gt 2 ]; then
     NODES="$NODES sequencer_d"
+fi
+if $run_decentralized_timeboost; then
+    INITIAL_SEQ_NODES="$INITIAL_SEQ_NODES sequencer_c"
+    TIMEBOOST_NODES="timeboost_a timeboost_b timeboost_c"
 fi
 
 if [ $batchposters -gt 0 ] && ! $simple; then
@@ -552,6 +562,9 @@ if $force_init; then
 
     echo == Funding l2 funnel and dev key
     docker compose up --wait $INITIAL_SEQ_NODES
+    if $run_decentralized_timeboost; then
+        docker compose up --wait $TIMEBOOST_NODES
+    fi
     docker compose run scripts bridge-funds --ethamount 100000 --wait
     docker compose run scripts send-l2 --ethamount 100 --to l2owner --wait
     rollupAddress=`docker compose run --entrypoint sh poster -c "jq -r '.[0].rollup.rollup' /config/deployed_chain_info.json | tail -n 1 | tr -d '\r\n'"`

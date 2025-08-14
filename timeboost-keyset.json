@@ -1,0 +1,67 @@
+{
+  "keyset": [
+    {
+      "sailfish_address": "timeboost_a:8000",
+      "decrypt_address": "timeboost_a:10000",
+      "certifier_address": "timeboost_a:11000",
+      "internal_address": "timeboost_a:5000",
+      "signing_key": "gQ6NwSfzZ6hZgaYSbFjuoVg2MRhfNf4ooQAYpRHeD8kR",
+      "dh_key": "FrgGQY5b6QP3YB7uVhWKYuSxzDEponqLW5Cr4ajVJmVP",
+      "chain_config": {
+        "parent_chain_id": 1337,
+        "parent_chain_rpc_url": "http://host.docker.internal:8545",
+        "parent_ibox_contr_addr": "0xA0f3A1a4E2B2Bcb7b48C8527C28098f207572EC1",
+        "parent_block_tag": "latest"
+      },
+      "enc_key": "8ronPcFzbb8McfiPgzjzrXneqzuufmiok4AYtxuSwUCEWqqj5Mq7YgfWnGgvt1tDmoL",
+      "private": {
+        "signing_key": "6VjrQNDxXzrEpiFuvnVxaDyjnDC1SfoFJx893AVYzb2o",
+        "dh_key": "7gehTbddQ7NV5RviiiCZRLs5iWEr6eZiSuTMJCmwWtwH",
+        "dec_key": "Ae95QMrsQ9hzCAVGtQVcntYqDDKUdFX1LPnHw3k3MdJ4T"
+      },
+      "nitro_addr": "host.docker.internal:55000"
+    },
+    {
+      "sailfish_address": "timeboost_b:8001",
+      "decrypt_address": "timeboost_b:10001",
+      "certifier_address": "timeboost_b:11001",
+      "internal_address": "timeboost_b:5001",
+      "signing_key": "27Sh1qxYJVJGfdxeTG4hbRjSxmp4khes8aaNPrY5toAYh",
+      "dh_key": "2HGWyKeu4D2UQpqWLQpnwCmPgp8BDfwGzmtpsX5b4QZm",
+      "chain_config": {
+        "parent_chain_id": 1337,
+        "parent_chain_rpc_url": "http://host.docker.internal:8545",
+        "parent_ibox_contr_addr": "0xA0f3A1a4E2B2Bcb7b48C8527C28098f207572EC1",
+        "parent_block_tag": "latest"
+      },
+      "enc_key": "8shJ3iCwY9aFhWTAuoxEm5WhjrbMmHYEuWmhnmKWyjNqXzyjFPPGbMgTEAJoJwKKRvP",
+      "private": {
+        "signing_key": "3k3dEF4JrepB227gL3YL1sAmoGgyocHtVU3xa3JQA9Yo",
+        "dh_key": "BehbEQWV28RXTKzAhsmckQcbko2zuKazMeTzhqFtkK5F",
+        "dec_key": "AaJeig94EcbHubVUqk57cYjX5BKRqkZu4qAwsCc4r9mVe"
+      },
+      "nitro_addr": "host.docker.internal:55001"
+    },
+    {
+      "sailfish_address": "timeboost_c:8002",
+      "decrypt_address": "timeboost_c:10002",
+      "certifier_address": "timeboost_c:11002",
+      "internal_address": "timeboost_c:5002",
+      "signing_key": "t9ZVtgeLeGjX5zoJ5ouaUPpFddWPqDhb5ahyHxXsT2ZL",
+      "dh_key": "HYd5PbyjZRcC5x7pTKJZsDfrykhjmJpm5w63VNjDTPbm",
+      "chain_config": {
+        "parent_chain_id": 1337,
+        "parent_chain_rpc_url": "http://host.docker.internal:8545",
+        "parent_ibox_contr_addr": "0xA0f3A1a4E2B2Bcb7b48C8527C28098f207572EC1",
+        "parent_block_tag": "latest"
+      },
+      "enc_key": "8sseutWcsDTTKJenSd9AVtFEomBxogN2btQ2F2pPvTfqgGEPrY4wkBKK65Kzk85YoWG",
+      "private": {
+        "signing_key": "9vrMQ7JnoDFqd5CgMwbjCfirQt2NEhRGdxKDm3Mn7SGY",
+        "dh_key": "Eavxy8MaqtPghvP1iMBV4p2Kt4pijpJrNrzCXzAs1oJc",
+        "dec_key": "AcpSAQXcDb6rdT1ep8fPpcs5HeGcAMS6WkN9mK24Bb2vj"
+      },
+      "nitro_addr": "host.docker.internal:55002"
+    }
+  ]
+}

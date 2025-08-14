@@ -206,6 +206,8 @@ services:
     ports:
       - "127.0.0.1:8747:8547"
       - "127.0.0.1:8748:8548"
+      - "127.0.0.1:9942:9642"
+      - "127.0.0.1:55002:55000"
     volumes:
       - "seqdata_c:/home/user/.arbitrum/local/nitro"
       - "config:/config"
@@ -234,7 +236,97 @@ services:
     depends_on:
       - geth
       - redis
-
+  timeboost_a:
+    pid: host
+    image: ghcr.io/espressosystems/timeboost:20250814
+    command:
+      [
+        "/app/timeboost",
+        "--id", "0",
+        "--rpc-port", "8800",
+        "--metrics-port", "9000",
+        "--keyset-file", "/app/timeboost-keyset.json",
+        "--stamp", "/tmp/timeboost.stamp",
+        "--namespace", "10101",
+      ]
+    environment:
+      - RUST_LOG=timeboost=info,sailfish=warn,cliquenet=warn
+      - TIMEBOOST_SAILFISH_PORT=8000
+      - TIMEBOOST_DECRYPT_PORT=10000
+      - TIMEBOOST_CERTIFIER_PORT=11000
+      - TIMEBOOST_RPC_PORT=8800
+      - TIMEBOOST_METRICS_PORT=9000
+    ports:
+      - "8000:8000"
+      - "10000:10000"
+      - "8800:8800"
+      - "11000:11000"
+      - "9000:9000"
+      - "5000:5000"
+    volumes:
+      - ./timeboost-keyset.json:/app/timeboost-keyset.json
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  timeboost_b:
+    pid: host
+    image: ghcr.io/espressosystems/timeboost:20250814
+    command:
+      [
+        "/app/timeboost",
+        "--id", "1",
+        "--rpc-port", "8801",
+        "--metrics-port", "9001",
+        "--keyset-file", "/app/timeboost-keyset.json",
+        "--stamp", "/tmp/timeboost.stamp",
+        "--namespace", "10101",
+      ]
+    environment:
+      - RUST_LOG=timeboost=info,sailfish=warn,cliquenet=warn
+      - TIMEBOOST_SAILFISH_PORT=8001
+      - TIMEBOOST_DECRYPT_PORT=10001
+      - TIMEBOOST_CERTIFIER_PORT=11001
+      - TIMEBOOST_RPC_PORT=8801
+      - TIMEBOOST_METRICS_PORT=9001
+    ports:
+      - "8001:8001"
+      - "10001:10001"
+      - "8801:8801"
+      - "11001:11001"
+      - "9001:9001"
+    volumes:
+      - ./timeboost-keyset.json:/app/timeboost-keyset.json
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  timeboost_c:
+    pid: host
+    image: ghcr.io/espressosystems/timeboost:20250814
+    command:
+      [
+        "/app/timeboost",
+        "--id", "2",
+        "--rpc-port", "8802",
+        "--metrics-port", "9002",
+        "--keyset-file", "/app/timeboost-keyset.json",
+        "--stamp", "/tmp/timeboost.stamp",
+        "--namespace", "10101",
+      ]
+    environment:
+      - RUST_LOG=timeboost=info,sailfish=warn,cliquenet=warn
+      - TIMEBOOST_SAILFISH_PORT=8002
+      - TIMEBOOST_DECRYPT_PORT=10002
+      - TIMEBOOST_CERTIFIER_PORT=11002
+      - TIMEBOOST_RPC_PORT=8802
+      - TIMEBOOST_METRICS_PORT=9002
+    ports:
+      - "8002:8002"
+      - "10002:10002"
+      - "8802:8802"
+      - "11002:11002"
+      - "9002:9002"
+    volumes:
+      - ./timeboost-keyset.json:/app/timeboost-keyset.json
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   staker-unsafe:
     pid: host # allow debugging
     image: nitro-node-dev-testnode

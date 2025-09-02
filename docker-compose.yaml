@@ -176,6 +176,7 @@ services:
       - --graphql.enable
       - --graphql.vhosts=*
       - --graphql.corsdomain=*
+      - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:5000
     depends_on:
       - geth
 
@@ -195,6 +196,7 @@ services:
       - --conf.file=/config/sequencer_config.json
       - --node.seq-coordinator.my-url=http://sequencer_b:8547
       - --http.api=net,web3,eth,txpool,debug,timeboost,auctioneer
+      - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:5001
     depends_on:
       - geth
       - redis
@@ -215,6 +217,7 @@ services:
       - --conf.file=/config/sequencer_config.json
       - --node.seq-coordinator.my-url=http://sequencer_c:8547
       - --http.api=net,web3,eth,txpool,debug,timeboost,auctioneer
+      - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:5002
     depends_on:
       - geth
       - redis
@@ -238,19 +241,21 @@ services:
       - redis
   timeboost_a:
     pid: host
-    image: ghcr.io/espressosystems/timeboost:20250814
+    image: ghcr.io/espressosystems/timeboost:delayed-msg
     command:
       [
         "/app/timeboost",
         "--id", "0",
-        "--rpc-port", "8800",
-        "--metrics-port", "9000",
+        "--http-port", "8800",
         "--keyset-file", "/app/timeboost-keyset.json",
         "--stamp", "/tmp/timeboost.stamp",
-        "--namespace", "10101",
+        "--namespace", "412346",
+        "--espresso-base-url", "http://espresso-dev-node:41000/v1/",
+        "--espresso-websocket-url", "ws://espresso-dev-node:41000/v1/",
+        "--https-only", "false"
       ]
     environment:
-      - RUST_LOG=timeboost=info,sailfish=warn,cliquenet=warn
+      - RUST_LOG=timeboost=info,sailfish=warn,cliquenet=warn,robust=info
       - TIMEBOOST_SAILFISH_PORT=8000
       - TIMEBOOST_DECRYPT_PORT=10000
       - TIMEBOOST_CERTIFIER_PORT=11000
@@ -269,19 +274,21 @@ services:
       - "host.docker.internal:host-gateway"
   timeboost_b:
     pid: host
-    image: ghcr.io/espressosystems/timeboost:20250814
+    image: ghcr.io/espressosystems/timeboost:delayed-msg
     command:
       [
         "/app/timeboost",
         "--id", "1",
-        "--rpc-port", "8801",
-        "--metrics-port", "9001",
+        "--http-port", "8801",
         "--keyset-file", "/app/timeboost-keyset.json",
         "--stamp", "/tmp/timeboost.stamp",
-        "--namespace", "10101",
+        "--namespace", "412346",
+        "--espresso-base-url", "http://espresso-dev-node:41000/v1/",
+        "--espresso-websocket-url", "ws://espresso-dev-node:41000/v1/",
+        "--https-only", "false"
       ]
     environment:
-      - RUST_LOG=timeboost=info,sailfish=warn,cliquenet=warn
+      - RUST_LOG=timeboost=info,sailfish=warn,cliquenet=warn,robust=info
       - TIMEBOOST_SAILFISH_PORT=8001
       - TIMEBOOST_DECRYPT_PORT=10001
       - TIMEBOOST_CERTIFIER_PORT=11001
@@ -293,22 +300,25 @@ services:
       - "8801:8801"
       - "11001:11001"
       - "9001:9001"
+      - "5001:5000"
     volumes:
       - ./timeboost-keyset.json:/app/timeboost-keyset.json
     extra_hosts:
       - "host.docker.internal:host-gateway"
   timeboost_c:
     pid: host
-    image: ghcr.io/espressosystems/timeboost:20250814
+    image: ghcr.io/espressosystems/timeboost:delayed-msg
     command:
       [
         "/app/timeboost",
         "--id", "2",
-        "--rpc-port", "8802",
-        "--metrics-port", "9002",
+        "--http-port", "8802",
         "--keyset-file", "/app/timeboost-keyset.json",
         "--stamp", "/tmp/timeboost.stamp",
-        "--namespace", "10101",
+        "--namespace", "412346",
+        "--espresso-base-url", "http://espresso-dev-node:41000/v1/",
+        "--espresso-websocket-url", "ws://espresso-dev-node:41000/v1/",
+        "--https-only", "false"
       ]
     environment:
       - RUST_LOG=timeboost=info,sailfish=warn,cliquenet=warn
@@ -323,10 +333,36 @@ services:
       - "8802:8802"
       - "11002:11002"
       - "9002:9002"
+      - "5002:5000"
     volumes:
       - ./timeboost-keyset.json:/app/timeboost-keyset.json
     extra_hosts:
       - "host.docker.internal:host-gateway"
+  espresso-dev-node:
+    pid: host
+    image: ghcr.io/espressosystems/espresso-sequencer/espresso-dev-node:20250826
+    ports:
+      - "41000:41000"
+      - "41003:41003"
+      - "20000:20000"
+    environment:
+      - ESPRESSO_BUILDER_PORT=41003
+      - ESPRESSO_DEPLOYER_ACCOUNT_INDEX=5
+      - ESPRESSO_DEV_NODE_PORT=20000
+      - ESPRESSO_SEQUENCER_API_PORT=41000
+      - ESPRESSO_SEQUENCER_ETH_MNEMONIC=indoor dish desk flag debris potato excuse depart ticket judge file exit
+      - ESPRESSO_SEQUENCER_L1_PROVIDER=http://host.docker.internal:8545
+      - ESPRESSO_SEQUENCER_DATABASE_MAX_CONNECTIONS=25
+      - ESPRESSO_DEV_NODE_EPOCH_HEIGHT=1000000
+      - ESPRESSO_SEQUENCER_STORAGE_PATH=/data/espresso
+      - RUST_LOG=WARN
+      - RUST_LOG_FORMAT
+      - ESPRESSO_DEV_NODE_VERSION=0.4
+    volumes:
+      - espresso_storage:/data/espresso
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  
   staker-unsafe:
     pid: host # allow debugging
     image: nitro-node-dev-testnode
@@ -577,3 +613,4 @@ volumes:
   das-committee-b-data:
   das-mirror-data:
   timeboost-auctioneer-data:
+  espresso_storage:

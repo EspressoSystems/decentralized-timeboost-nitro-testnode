@@ -226,10 +226,10 @@ function writeConfigs(argv: any) {
             "delayed-sequencer": {
                 "enable": false
             },
-            "timeboost-sequencer": {
+            "decentralized-timeboost-sequencer": {
                 "enable": false
             },
-            "timeboost-delayed-sequencer": {
+            "decentralized-timeboost-delayed-sequencer": {
                 "enable": false
             },
             "seq-coordinator": {
@@ -350,8 +350,8 @@ function writeConfigs(argv: any) {
         }
         if (argv.decentralizedTimeboost) {
             sequencerConfig.node.sequencer = false;
-            sequencerConfig.node["timeboost-sequencer"].enable = true;
-            sequencerConfig.node["timeboost-delayed-sequencer"].enable = true;
+            sequencerConfig.node["decentralized-timeboost-sequencer"].enable = true;
+            sequencerConfig.node["decentralized-timeboost-delayed-sequencer"].enable = true;
             sequencerConfig.node["seq-coordinator"].enable = false;
             sequencerConfig.execution.sequencer.enable = false;
             sequencerConfig.node["delayed-sequencer"].enable = false;

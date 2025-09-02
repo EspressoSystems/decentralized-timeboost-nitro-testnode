@@ -10,7 +10,7 @@
       "chain_config": {
         "parent_chain_id": 1337,
         "parent_chain_rpc_url": "http://host.docker.internal:8545",
-        "parent_ibox_contr_addr": "0xA0f3A1a4E2B2Bcb7b48C8527C28098f207572EC1",
+        "parent_ibox_contr_addr": "0x52e3cAb4Bc04aCc265B452AdA9363B529DA8eBed",
         "parent_block_tag": "latest"
       },
       "enc_key": "8ronPcFzbb8McfiPgzjzrXneqzuufmiok4AYtxuSwUCEWqqj5Mq7YgfWnGgvt1tDmoL",
@@ -31,7 +31,7 @@
       "chain_config": {
         "parent_chain_id": 1337,
         "parent_chain_rpc_url": "http://host.docker.internal:8545",
-        "parent_ibox_contr_addr": "0xA0f3A1a4E2B2Bcb7b48C8527C28098f207572EC1",
+        "parent_ibox_contr_addr": "0x52e3cAb4Bc04aCc265B452AdA9363B529DA8eBed",
         "parent_block_tag": "latest"
       },
       "enc_key": "8shJ3iCwY9aFhWTAuoxEm5WhjrbMmHYEuWmhnmKWyjNqXzyjFPPGbMgTEAJoJwKKRvP",
@@ -52,7 +52,7 @@
       "chain_config": {
         "parent_chain_id": 1337,
         "parent_chain_rpc_url": "http://host.docker.internal:8545",
-        "parent_ibox_contr_addr": "0xA0f3A1a4E2B2Bcb7b48C8527C28098f207572EC1",
+        "parent_ibox_contr_addr": "0x52e3cAb4Bc04aCc265B452AdA9363B529DA8eBed",
         "parent_block_tag": "latest"
       },
       "enc_key": "8sseutWcsDTTKJenSd9AVtFEomBxogN2btQ2F2pPvTfqgGEPrY4wkBKK65Kzk85YoWG",

@@ -176,7 +176,7 @@ services:
       - --graphql.enable
       - --graphql.vhosts=*
       - --graphql.corsdomain=*
-      - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:5000
+      - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:8003
     depends_on:
       - geth
 
@@ -190,13 +190,14 @@ services:
       - "127.0.0.1:9842:9642"
       - "127.0.0.1:55001:55000"
     volumes:
+      - "l1keystore:/home/user/l1keystore"
       - "seqdata_b:/home/user/.arbitrum/local/nitro"
       - "config:/config"
     command:
       - --conf.file=/config/sequencer_config.json
       - --node.seq-coordinator.my-url=http://sequencer_b:8547
       - --http.api=net,web3,eth,txpool,debug,timeboost,auctioneer
-      - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:5001
+      - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:8013
     depends_on:
       - geth
       - redis
@@ -211,13 +212,14 @@ services:
       - "127.0.0.1:9942:9642"
       - "127.0.0.1:55002:55000"
     volumes:
+      - "l1keystore:/home/user/l1keystore"
       - "seqdata_c:/home/user/.arbitrum/local/nitro"
       - "config:/config"
     command:
       - --conf.file=/config/sequencer_config.json
       - --node.seq-coordinator.my-url=http://sequencer_c:8547
       - --http.api=net,web3,eth,txpool,debug,timeboost,auctioneer
-      - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:5002
+      - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:8023
     depends_on:
       - geth
       - redis
@@ -267,7 +269,7 @@ services:
       - "8800:8800"
       - "11000:11000"
       - "9000:9000"
-      - "5000:5000"
+      - "8003:8003"
     volumes:
       - ./timeboost-keyset.json:/app/timeboost-keyset.json
     extra_hosts:
@@ -300,7 +302,7 @@ services:
       - "8801:8801"
       - "11001:11001"
       - "9001:9001"
-      - "5001:5000"
+      - "8013:8013"
     volumes:
       - ./timeboost-keyset.json:/app/timeboost-keyset.json
     extra_hosts:
@@ -333,7 +335,7 @@ services:
       - "8802:8802"
       - "11002:11002"
       - "9002:9002"
-      - "5002:5000"
+      - "8023:8023"
     volumes:
       - ./timeboost-keyset.json:/app/timeboost-keyset.json
     extra_hosts:

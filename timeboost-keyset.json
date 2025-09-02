@@ -4,7 +4,7 @@
       "sailfish_address": "timeboost_a:8000",
       "decrypt_address": "timeboost_a:10000",
       "certifier_address": "timeboost_a:11000",
-      "internal_address": "timeboost_a:5000",
+      "internal_address": "timeboost_a:8003",
       "signing_key": "gQ6NwSfzZ6hZgaYSbFjuoVg2MRhfNf4ooQAYpRHeD8kR",
       "dh_key": "FrgGQY5b6QP3YB7uVhWKYuSxzDEponqLW5Cr4ajVJmVP",
       "chain_config": {
@@ -25,7 +25,7 @@
       "sailfish_address": "timeboost_b:8001",
       "decrypt_address": "timeboost_b:10001",
       "certifier_address": "timeboost_b:11001",
-      "internal_address": "timeboost_b:5001",
+      "internal_address": "timeboost_b:8013",
       "signing_key": "27Sh1qxYJVJGfdxeTG4hbRjSxmp4khes8aaNPrY5toAYh",
       "dh_key": "2HGWyKeu4D2UQpqWLQpnwCmPgp8BDfwGzmtpsX5b4QZm",
       "chain_config": {
@@ -46,7 +46,7 @@
       "sailfish_address": "timeboost_c:8002",
       "decrypt_address": "timeboost_c:10002",
       "certifier_address": "timeboost_c:11002",
-      "internal_address": "timeboost_c:5002",
+      "internal_address": "timeboost_c:8023",
       "signing_key": "t9ZVtgeLeGjX5zoJ5ouaUPpFddWPqDhb5ahyHxXsT2ZL",
       "dh_key": "HYd5PbyjZRcC5x7pTKJZsDfrykhjmJpm5w63VNjDTPbm",
       "chain_config": {

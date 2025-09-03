@@ -178,7 +178,7 @@ services:
       - --graphql.corsdomain=*
       - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:8003
     extra_hosts:
-      - "host.docker.internal:172.18.0.1"
+      - "host.docker.internal:host-gateway"
     depends_on:
       - geth
 
@@ -201,7 +201,7 @@ services:
       - --http.api=net,web3,eth,txpool,debug,timeboost,auctioneer
       - --node.decentralized-timeboost-sequencer.decentralized-timeboost-bridge-config.internal-timeboost-grpc-url=host.docker.internal:8013
     extra_hosts:
-      - "host.docker.internal:172.17.0.1"
+      - "host.docker.internal:host-gateway"
     depends_on:
       - geth
       - redis

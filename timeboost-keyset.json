@@ -40,7 +40,7 @@
         "dh_key": "BehbEQWV28RXTKzAhsmckQcbko2zuKazMeTzhqFtkK5F",
         "dec_key": "AaJeig94EcbHubVUqk57cYjX5BKRqkZu4qAwsCc4r9mVe"
       },
-      "nitro_addr": "host.docker.internal:55001"
+      "nitro_addr": "host.docker.internal:55010"
     },
     {
       "sailfish_address": "timeboost_c:8002",
@@ -61,7 +61,7 @@
         "dh_key": "Eavxy8MaqtPghvP1iMBV4p2Kt4pijpJrNrzCXzAs1oJc",
         "dec_key": "AcpSAQXcDb6rdT1ep8fPpcs5HeGcAMS6WkN9mK24Bb2vj"
       },
-      "nitro_addr": "host.docker.internal:55002"
+      "nitro_addr": "host.docker.internal:55020"
     }
   ]
 }

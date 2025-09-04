@@ -190,7 +190,7 @@ services:
       - "127.0.0.1:8647:8547"
       - "127.0.0.1:8648:8548"
       - "127.0.0.1:9842:9642"
-      - "127.0.0.1:55001:55000"
+      - "127.0.0.1:55010:55000"
     volumes:
       - "l1keystore:/home/user/l1keystore"
       - "seqdata_b:/home/user/.arbitrum/local/nitro"
@@ -214,7 +214,7 @@ services:
       - "127.0.0.1:8747:8547"
       - "127.0.0.1:8748:8548"
       - "127.0.0.1:9942:9642"
-      - "127.0.0.1:55002:55000"
+      - "127.0.0.1:55020:55000"
     volumes:
       - "l1keystore:/home/user/l1keystore"
       - "seqdata_c:/home/user/.arbitrum/local/nitro"

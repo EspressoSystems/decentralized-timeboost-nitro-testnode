@@ -2,7 +2,7 @@
 
 set -eu
 
-NITRO_NODE_VERSION=ghcr.io/espressosystems/nitro-espresso-integration/nitro-node:pr-689
+NITRO_NODE_VERSION=ghcr.io/espressosystems/nitro-espresso-integration/nitro-node:pr-740
 BLOCKSCOUT_VERSION=offchainlabs/blockscout:v1.1.0-0e716c8
 
 # nitro-contract workaround for testnode
@@ -489,6 +489,10 @@ if $force_init; then
     echo == create l1 traffic
     docker compose run scripts send-l1 --ethamount 1000 --to user_l1user --wait
     docker compose run scripts send-l1 --ethamount 0.0001 --from user_l1user --to user_l1user --wait --delay 1000 --times 1000000 > /dev/null &
+
+    if $run_decentralized_timeboost; then
+        docker compose up -d espresso-dev-node
+    fi
 
     l2ownerAddress=`docker compose run scripts print-address --account l2owner | tail -n 1 | tr -d '\r\n'`
 
